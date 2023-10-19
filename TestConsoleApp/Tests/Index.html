@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="../Scripts/web-socket.js"></script>
+    <script src="../Scripts/helpers.js"></script>
+</head>
+<body style="font-size:xx-large">
+    <div id="test" style="display: block;">
+        <a id="send" onclick="test()" >Start test</a>
+    </div>
+    <script type="text/javascript">
+
+        //10 100 1000 10000 100000 1000000
+        function test() {
+            for (var i = 1; i <= 6; i++) {
+                var count = Math.pow(10, i);
+                appendChild("test", i + ": Messages: " + count);
+                var start = new Date().getTime();
+                appendChild("test", "Start: " + start);
+                for (var j = 0; j < count; j++) {
+                    loadDoc();
+                }
+
+                var end = new Date().getTime();
+                //debugger
+                appendChild("test", "End: " + end);
+                appendChild("test", "Time: " + (end - start));
+            }
+        }
+
+        function loadDoc() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+
+                    //setTimeout(function () {
+
+                    //appendChild("test", this.responseText);
+
+                    //}, 0);
+
+
+                }
+            };
+            xhttp.open("GET", "http://localhost:9999/HTTPTest/Client/1000", true);
+            xhttp.send();
+        }
+
+    </script>
+</body>
+</html>

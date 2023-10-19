@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<head>
+    <script src="../Scripts/web-socket.js"></script>
+    <script src="../Scripts/helpers.js"></script>
+</head>
+<body style="font-size:xx-large">
+    <div style="display: block;">
+        <a id="demo" class="demo">Click here to connect</a>
+        <a id="send">Start test</a>
+    </div>
+    <div id="test" style="display: block;">
+    </div>
+    <script type="text/javascript">
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+
+            var timer = new WebSocketClient({
+                url: "ws://localhost:8181/",
+                wsInitSelector: document.getElementById("demo"),
+                wsSwndSelector: document.getElementById("send"),
+                OnSend: function () { return "Start Timer"; },
+                OnOpen: function () { console.log('WebSocket connection Open 1'); },
+                OnMessage: function (e)
+                {
+                    clear("test");
+                    appendChild("test", e);
+                },
+            });
+
+        });
+
+
+    </script>
+</body>
+</html>

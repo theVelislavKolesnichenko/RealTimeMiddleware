@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="../Scripts/web-socket.js"></script>
+    <script src="../Scripts/helpers.js"></script>
+</head>
+<body style="font-size:xx-large">
+    <div id="test" style="display: block;">
+        <a id="demo" class="demo">Get Factory value</a>
+    </div>
+    <script type="text/javascript">
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+
+            var factory = new WebSocketClient({
+                url: "ws://localhost:8185/",
+                wsInitSelector: document.getElementById("demo"),
+                wsSwndSelector: document.getElementById("send"),
+                //OnSend: function () { return document.getElementById("value").value; },
+                OnOpen: function () { console.log('WebSocket connection Open Managment'); },
+                OnMessage: function (e) { document.getElementById("test").innerHTML = ''; appendSpanChild(document.getElementById("test"), e); }
+            });
+
+        });
+
+
+    </script>
+</body>
+</html>

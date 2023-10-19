@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="../Scripts/web-socket.js"></script>
+    <script src="../Scripts/helpers.js"></script>
+</head>
+<body style="font-size:xx-large">
+    <div style="display: block;">
+        <!--<input type="text" id="first-name" />
+        <input type="text" id="last-name" />
+        <input type="text" id="age" />-->
+        <a id="student">Get Student</a>
+    </div>
+    <div id="test" style="display: block;">
+    </div>
+    <script type="text/javascript">
+        var studentSystem = null;
+        document.addEventListener("DOMContentLoaded", function (event) {
+            studentSystem = new WebSocketClient({
+                url: "ws://localhost:8182/",
+                wsInitSelector: document.getElementById("student"),
+                OnOpen: function () { console.log('WebSocket connection Open StdentSystem'); },
+                OnMessage: function (e) {
+                    debugger
+                    var students = JSON.parse(e);
+                    document.getElementById("test").innerHTML = '';
+                    for (var j = 0; j < students.length; j++) {
+
+                        var student = students[j];
+
+                        var div = document.createElement("div");
+                        div.className = "student";
+                        appendSpanChild(div, "Student" + student.Id);
+                        appendInputTextChild(div, "first-name", student.FirstName);
+                        appendInputTextChild(div, "last-name", student.LastName);
+                        appendInputTextChild(div, "age", student.Age);
+                        appendInputHiddenChild(div, "id", student.Id);
+
+                        var div1 = document.createElement("div");
+                        div1.className = "courses";
+                        appendSpanChild(div1, "Cource");
+
+                        for (i = 0; i < student.recCourses.length; i++) {
+
+                            var div2 = document.createElement("div");
+                            div2.id = "course" + i;
+                            //div2.className = "course";
+
+                            appendInputTextChild(div2, "cource-name", student.recCourses[i].Name);
+
+                            appendInputTextChild(div2, "cource-description", student.recCourses[i].Description);
+
+                            appendInputTextChild(div2, "cource-evaluation", student.recCourses[i].Evaluation);
+
+                            appendInputHiddenChild(div2, "cource-id", student.recCourses[i].Id);
+
+                            div1.appendChild(div2);
+                        }
+
+                        div.appendChild(div1);
+
+                        div.style.display = 'block';
+                        document.getElementById("test").appendChild(div);
+                    }       
+                },
+            });
+        });
+    </script>
+</body>
+</html>

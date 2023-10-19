@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="../Scripts/web-socket.js"></script>
+    <script src="../Scripts/helpers.js"></script>
+</head>
+<body style="font-size:xx-large">
+    <div id="test" style="display: block;">
+        <a id="demo" class="demo">Click here to connect</a>
+        <input type="text" id="value" value="0" />
+        <a id="send">Click here to send</a>
+    </div>
+    <script type="text/javascript">
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+
+            var factory = new WebSocketClient({
+                url: "ws://localhost:8184/",
+                wsInitSelector: document.getElementById("demo"),
+                wsSwndSelector: document.getElementById("send"),
+                OnSend: function () {
+                    debugger
+                    var message = document.getElementById("value").value
+                    return message;
+                },
+                OnOpen: function () { console.log('WebSocket connection Open Factory'); },
+            });
+
+        });
+
+
+    </script>
+</body>
+</html>

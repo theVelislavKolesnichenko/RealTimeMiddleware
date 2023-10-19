@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="../Scripts/web-socket.js"></script>
+    <script src="../Scripts/helpers.js"></script>
+</head>
+<body style="font-size:xx-large">
+    <div id="test" style="display: block;">
+        <a id="demo" class="demo">Click here to connect</a> <!-- onclick="connect()"-->
+        <a id="send">Start test</a>
+    </div>
+    <script type="text/javascript">
+
+        var count = 0;
+        var start = 0;
+        document.addEventListener("DOMContentLoaded", function (event) {
+
+            var testClient = new WebSocketClient({
+                url: "ws://localhost:8183/",
+                wsInitSelector: document.getElementById("demo"),
+                wsSwndSelector: document.getElementById("send"),
+                OnSend: function () { return "1000"; },
+                OnOpen: function () { console.log('WebSocket connection Open Test'); },
+                OnMessage: function (e) {
+
+
+                    if(count === 0){
+                        start = new Date().getTime();
+                    }
+                    count++;
+                    //appendChild("test", count + ": " + e);
+                    if (count === 10) {
+                        var end = new Date().getTime();
+                        //debugger
+                        appendChild("test", 1 + ": Messages: " + 10);
+                        appendChild("test", "Start: " + start);
+
+                        appendChild("test", "End: " + end);
+                        appendChild("test", "Time: " + (end - start));
+
+                        testClient.OnSend();
+                    }
+                    if (count === 100) {
+                        var end = new Date().getTime();
+                        //debugger
+                        appendChild("test", 1 + ": Messages: " + 100);
+                        appendChild("test", "Start: " + start);
+
+                        appendChild("test", "End: " + end);
+                        appendChild("test", "Time: " + (end - start));
+
+                        testClient.OnSend();
+                    }
+                    if (count === 1000) {
+                        var end = new Date().getTime();
+                        //debugger
+                        appendChild("test", 1 + ": Messages: " + 1000);
+                        appendChild("test", "Start: " + start);
+
+                        appendChild("test", "End: " + end);
+                        appendChild("test", "Time: " + (end - start));
+
+                        testClient.OnSend();
+                    }
+                    if (count === 10000) {
+                        var end = new Date().getTime();
+                        //debugger
+                        appendChild("test", 1 + ": Messages: " + 10000);
+                        appendChild("test", "Start: " + start);
+
+                        appendChild("test", "End: " + end);
+                        appendChild("test", "Time: " + (end - start));
+
+                        testClient.OnSend();
+                    }
+                    if (count === 100000) {
+                        var end = new Date().getTime();
+                        //debugger
+                        appendChild("test", 1 + ": Messages: " + 100000);
+                        appendChild("test", "Start: " + start);
+
+                        appendChild("test", "End: " + end);
+                        appendChild("test", "Time: " + (end - start));
+
+                        testClient.OnSend();
+                    }
+                    if (count === 1000000) {
+                        var end = new Date().getTime();
+                        //debugger
+                        appendChild("test", 1 + ": Messages: " + 1000000);
+                        appendChild("test", "Start: " + start);
+
+                        appendChild("test", "End: " + end);
+                        appendChild("test", "Time: " + (end - start));
+
+                        testClient.OnSend();
+                    }
+
+                },
+            });
+        });
+
+
+    </script>
+</body>
+</html>

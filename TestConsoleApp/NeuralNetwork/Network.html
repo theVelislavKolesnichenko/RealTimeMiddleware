@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<head>
+    <script src="../Scripts/web-socket.js"></script>
+    <script src="../Scripts/helpers.js"></script>
+</head>
+<body style="font-size:xx-large">
+    <div style="display: block;">
+        <a id="demo" style="display: block;" class="demo">Click here to connect 1</a>
+        <a id="send" style="display: block;">Start test 1</a>
+        <a id="demo1" style="display: block;" class="demo">Click here to connect 2</a>
+        <a id="send1" style="display: block;">Start test 2</a>
+    </div>
+    <div id="test" style="display: block;">
+    </div>
+    <script type="text/javascript">
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+            var network = {
+                input: [0.05, 0.1],
+                weigth: [0.15, 0.2, 0.25, 0.3, 0.4, 0.45, 0.5, 0.55],
+                output: [0.1, 0.9]
+            };
+            var timer = new WebSocketClient({
+                url: "ws://localhost:8186/",
+                wsInitSelector: document.getElementById("demo"),
+                wsSwndSelector: document.getElementById("send"),
+                OnSend: function () {
+                    return JSON.stringify(network);
+                },
+                OnOpen: function () { console.log('WebSocket connection Open NeuronNetwork 1'); },
+                OnMessage: function (e) {
+                    //clear("test");
+                    appendChild("test", e);
+                    network = JSON.parse(e);
+                },
+            });
+
+            var timer2 = new WebSocketClient({
+                url: "ws://localhost:8187/",
+                wsInitSelector: document.getElementById("demo1"),
+                wsSwndSelector: document.getElementById("send1"),
+                OnSend: function () {
+                    return JSON.stringify(network);
+                },
+                OnOpen: function () { console.log('WebSocket connection Open NeuronNetwork 2'); },
+                OnMessage: function (e) {
+                    //clear("test");
+                    appendChild("test", e);
+                    network = JSON.parse(e);
+                },
+            });
+
+        });
+
+
+    </script>
+</body>
+</html>
